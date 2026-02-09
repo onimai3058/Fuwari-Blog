@@ -45,13 +45,13 @@ export const navBarConfig: NavBarConfig = {
 		LinkPreset.Archive,
 		LinkPreset.About,
 		{
-			name: "BiliBili",
-			url: "https://space.bilibili.com/3546773381450643",
+			name: "GitHub",
+			url: "https://github.com/AoJiaWei",
 			external: true,
 		},
 		{
-			name: "GitHub",
-			url: "https://github.com/AoJiaWei",
+			name: "BiliBili",
+			url: "https://space.bilibili.com/3546773381450643",
 			external: true,
 		},
 	],
@@ -63,14 +63,19 @@ export const profileConfig: ProfileConfig = {
 	bio: "愿你历尽千帆，归来仍是少年。",
 	links: [
 		{
-			name: "BiliBili",
-			icon: "fa6-brands:bilibili",
-			url: "https://space.bilibili.com/3546773381450643",
+			name: "Email",
+			icon: "fa6-solid:envelope",
+			url: "mailto:ikun3058@131124.xyz",
 		},
 		{
 			name: "GitHub",
 			icon: "fa6-brands:github",
 			url: "https://github.com/AoJiaWei",
+		},
+		{
+			name: "BiliBili",
+			icon: "fa6-brands:bilibili",
+			url: "https://space.bilibili.com/3546773381450643",
 		},
 	],
 };
