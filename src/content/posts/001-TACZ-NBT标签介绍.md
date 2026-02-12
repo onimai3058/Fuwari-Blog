@@ -18,7 +18,7 @@ lang: ''
 ```
 获取手中物品ID
 
-格洛克17大概是这样的：![P1](./img/P1.png)
+格洛克17大概是这样的：![P1](../img/001/P1.png)
 
 同理，使用这条指令也可以获取配件的ID，便与后文给枪械加上想要的配件
 
@@ -78,7 +78,7 @@ tacz:modern_kinetic_gun是枪械ID，获取的时候需要附加上NBT标签
 /give @s tacz:modern_kinetic_gun{GunId:"tacz:glock_17",GunCurrentAmmoCount:2147483647,GunFireMode:"AUTO",AttachmentSCOPE:{id:"tacz:attachment",Count:1b,tag:{AttachmentId:"tacz:scope_standard_8x"}}}
 ```
 
-![P2](./img/P2.png)
+![P2](../img/001/P2.png)
 
 有点滑稽
 
