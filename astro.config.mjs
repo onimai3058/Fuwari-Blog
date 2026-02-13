@@ -9,6 +9,7 @@ import icon from "astro-icon";
 import { defineConfig } from "astro/config";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeComponents from "rehype-components"; /* Render the custom directive content */
+import rehypeExternalLinks from "rehype-external-links"; /* 引入Rehype-external-links */
 import rehypeKatex from "rehype-katex";
 import rehypeSlug from "rehype-slug";
 import remarkDirective from "remark-directive"; /* Handle directives */
@@ -115,6 +116,7 @@ export default defineConfig({
 		rehypePlugins: [
 			rehypeKatex,
 			rehypeSlug,
+			[rehypeExternalLinks, { target: "_blank", rel: ["noopener", "noreferrer"] }], // 实现外部链接在新标签页打开，并添加安全属性
 			[
 				rehypeComponents,
 				{
