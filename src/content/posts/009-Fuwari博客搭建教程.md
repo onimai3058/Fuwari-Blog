@@ -1,7 +1,7 @@
 ---
 title: "使用Fuwari搭建个人博客"
 published: 2026-01-04
-description: "静态网页框架很多，但是基于Astro的Fuwari你了解一下"
+description: "009-静态网页框架很多，但是基于Astro的Fuwari你了解一下"
 image: ""
 tags: ["Astro","静态网页"]
 category: '静态网页'

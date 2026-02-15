@@ -1,7 +1,7 @@
 ---
 title: "OpenList丑？美化了解一下"
 published: 2026-01-12
-description: "原版OpenList（AList）的界面看久了，用久了审美疲劳了，来看看这篇美化教程，复制粘贴即可完成美化"
+description: "013-原版OpenList（AList）的界面看久了，用久了审美疲劳了，来看看这篇美化教程，复制粘贴即可完成美化"
 image: ""
 tags: [OpenList]
 category: "云项目"

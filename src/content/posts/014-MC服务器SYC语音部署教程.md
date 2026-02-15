@@ -1,7 +1,7 @@
 ---
 title: "给你的MC服务器增加语音功能"
 published: 2026-01-15
-description: "依然是MC服务器添砖加瓦，SVC（简单的语音聊天）"
+description: "014-依然是MC服务器添砖加瓦，SVC（简单的语音聊天）"
 image: ""
 tags: [MC-MOD]
 category: "MC"

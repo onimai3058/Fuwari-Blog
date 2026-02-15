@@ -1,7 +1,7 @@
 ---
 title: Fuwari博客常用命令
 published: 2026-01-06
-description: '记录Fuwari博客常用的一些命令，使用它们不断更新、调试你的博客'
+description: '010-记录Fuwari博客常用的一些命令，使用它们不断更新、调试你的博客'
 image: ''
 tags: ["Astro","静态网页"]
 category: '静态网页'

@@ -1,7 +1,7 @@
 ---
 title: TACZ(永恒枪械工坊)枪械NBT标签介绍
 published: 2025-12-05
-description: '通过NBT标签在TACZ中如何获取超越常规、突破限制的特殊枪械'
+description: '001-通过NBT标签在TACZ中如何获取超越常规、突破限制的特殊枪械'
 image: ''
 tags: [MC-MOD]
 category: 'MC'
