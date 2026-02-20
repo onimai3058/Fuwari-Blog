@@ -82,7 +82,13 @@ if __name__ == "__main__":
     # 方式2：默认使用当前目录（脚本所在目录）
     else:
         root_dir = os.getcwd()
-        print(f"ℹ️  未指定根目录，默认处理当前目录：{root_dir}\n")
+        print(f"ℹ️  未指定目录，处理当前目录：{root_dir}\n")
     
     # 执行递归压缩（quality=85适配博客场景）
     compress_png_images_recursive(root_dir, quality=85)
+    
+    # ========== 关键新增：让窗口停留 ==========
+    print("\n" + "="*60)
+    print("✅ 所有操作完成！按回车键关闭窗口...")
+    # 等待用户输入（按回车才会关闭）
+    input()
