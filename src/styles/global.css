@@ -1,0 +1,13 @@
+/* src/styles/global.css */
+/* 全局应用霞鹜文楷字体 */
+body {
+  font-family: 'LXGW WenKai', sans-serif; /* 优先用霞鹜文楷，兜底系统字体 */
+  font-weight: 400; /* 对应链接里的 regular（常规字重） */
+  font-size: 16px; /* 可选：调整字体大小适配显示 */
+}
+
+/* 可选：给标题单独强化样式 */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'LXGW WenKai', sans-serif;
+  font-weight: 400; /* 霞鹜文楷 regular 版本无粗体，保持统一 */
+}
