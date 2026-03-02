@@ -92,14 +92,10 @@ import MainGridLayout from "../layouts/MainGridLayout.astro";
             {cats.map(({ key, name }, i) => (
               <button
                 id={`tab-${key}`}
-                class={`tab-button px-4 py-2 font-medium text-sm transition-colors ${
-                  i === 0
-                    ? 'border-b-2 border-primary text-primary dark:text-[var(--primary)]'
-                    : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
-                }`}
+                class="tab-button px-4 py-2 font-medium text-sm transition-colors text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
                 data-target={key}
                 role="tab"
-                aria-selected={i === 0}
+                aria-selected="false"
               >
                 {name}（{data[key].length}）
               </button>
@@ -176,49 +172,70 @@ import MainGridLayout from "../layouts/MainGridLayout.astro";
 
 <!-- 客户端交互 -->
 <script is:inline>
-  function initBangumiTabs() {
+  // 最简单的选项卡切换函数
+  function switchTab(clickedTab) {
+    // 获取所有选项卡和内容区域
     const tabs = document.querySelectorAll('#bangumi-tabs .tab-button');
     const sections = document.querySelectorAll('.bangumi-section');
-
-    function switchTab(tab) {
-      tabs.forEach(t => {
-        const selected = t === tab;
-        if (selected) {
-          t.classList.add('border-b-2', 'border-primary', 'text-primary', 'dark:text-[var(--primary)]');
-          t.classList.remove('text-gray-500', 'hover:text-gray-700', 'dark:text-gray-400', 'dark:hover:text-gray-300');
-        } else {
-          t.classList.remove('border-b-2', 'border-primary', 'text-primary', 'dark:text-[var(--primary)]');
-          t.classList.add('text-gray-500', 'hover:text-gray-700', 'dark:text-gray-400', 'dark:hover:text-gray-300');
-        }
-        t.setAttribute('aria-selected', selected);
-      });
-      sections.forEach(sec => {
-        const isActive = sec.id === tab.dataset.target;
-        if (isActive) {
-          sec.classList.remove('hidden');
-        } else {
-          sec.classList.add('hidden');
-        }
-        sec.setAttribute('aria-hidden', !isActive);
-      });
-    }
-
-    // 移除之前的事件监听器，避免重复绑定
+    
+    // 重置所有选项卡
     tabs.forEach(tab => {
-      tab.replaceWith(tab.cloneNode(true));
+      tab.classList.remove('border-b-2', 'border-primary', 'text-primary');
+      tab.classList.add('text-gray-500');
+      tab.setAttribute('aria-selected', 'false');
     });
-
-    // 重新获取元素并绑定事件
-    const newTabs = document.querySelectorAll('#bangumi-tabs .tab-button');
-    newTabs.forEach(tab => tab.addEventListener('click', () => switchTab(tab)));
+    
+    // 设置当前选项卡
+    clickedTab.classList.remove('text-gray-500');
+    clickedTab.classList.add('border-b-2', 'border-primary', 'text-primary');
+    clickedTab.setAttribute('aria-selected', 'true');
+    
+    // 切换内容区域
+    const targetId = clickedTab.dataset.target;
+    sections.forEach(section => {
+      if (section.id === targetId) {
+        section.classList.remove('hidden');
+      } else {
+        section.classList.add('hidden');
+      }
+    });
   }
 
-  // 初始加载
-  document.addEventListener('DOMContentLoaded', initBangumiTabs);
+  // 初始化函数
+  function initBangumiTabs() {
+    const tabs = document.querySelectorAll('#bangumi-tabs .tab-button');
+    
+    // 为每个选项卡绑定点击事件
+    tabs.forEach(tab => {
+      // 移除现有事件监听器
+      const newTab = tab.cloneNode(true);
+      tab.parentNode.replaceChild(newTab, tab);
+      
+      // 绑定新的事件
+      newTab.addEventListener('click', function() {
+        switchTab(this);
+      });
+    });
+    
+    // 激活第一个选项卡
+    const firstTab = document.querySelector('#bangumi-tabs .tab-button');
+    if (firstTab) {
+      switchTab(firstTab);
+    }
+  }
 
-  // Swup 页面切换后重新初始化
-  if (typeof window !== 'undefined' && window.swup) {
-    window.swup.hooks.on('page:view', initBangumiTabs);
+  // 页面加载时初始化
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initBangumiTabs);
+  } else {
+    initBangumiTabs();
+  }
+  
+  // Swup 页面切换时重新初始化
+  if (window.swup) {
+    window.swup.hooks.on('page:view', function() {
+      setTimeout(initBangumiTabs, 50);
+    });
   }
 </script>
 
