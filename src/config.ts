@@ -45,6 +45,11 @@ export const navBarConfig: NavBarConfig = {
 		LinkPreset.Archive,
 		LinkPreset.About,
 		{
+			name: "番组计划",
+			url: "/bangumi/",
+			external: false,
+		},
+		{
 			name: "GitHub",
 			url: "https://github.com/ikun3058",
 			external: true,
