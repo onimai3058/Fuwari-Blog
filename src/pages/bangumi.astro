@@ -183,29 +183,27 @@ import MainGridLayout from "../layouts/MainGridLayout.astro";
     function switchTab(tab) {
       tabs.forEach(t => {
         const selected = t === tab;
-        t.classList.toggle('border-b-2', selected);
-        t.classList.toggle('border-primary', selected);
-        t.classList.toggle('text-primary', selected);
-        t.classList.toggle('dark:text-[var(--primary)]', selected);
+        if (selected) {
+          t.classList.add('border-b-2', 'border-primary', 'text-primary', 'dark:text-[var(--primary)]');
+          t.classList.remove('text-gray-500', 'hover:text-gray-700', 'dark:text-gray-400', 'dark:hover:text-gray-300');
+        } else {
+          t.classList.remove('border-b-2', 'border-primary', 'text-primary', 'dark:text-[var(--primary)]');
+          t.classList.add('text-gray-500', 'hover:text-gray-700', 'dark:text-gray-400', 'dark:hover:text-gray-300');
+        }
         t.setAttribute('aria-selected', selected);
       });
       sections.forEach(sec => {
-        sec.classList.toggle('hidden', sec.id !== tab.dataset.target);
-        sec.setAttribute('aria-hidden', sec.id !== tab.dataset.target);
+        const isActive = sec.id === tab.dataset.target;
+        if (isActive) {
+          sec.classList.remove('hidden');
+        } else {
+          sec.classList.add('hidden');
+        }
+        sec.setAttribute('aria-hidden', !isActive);
       });
     }
 
     tabs.forEach(tab => tab.addEventListener('click', () => switchTab(tab)));
-
-    // 图片错误处理
-    document.querySelectorAll('img[data-src-fallback]').forEach(img => {
-      img.addEventListener('error', function () {
-        if (this.src !== this.dataset.srcFallback) {
-          this.src = this.dataset.srcFallback;
-          this.alt = '图片加载失败';
-        }
-      });
-    });
   });
 </script>
 
