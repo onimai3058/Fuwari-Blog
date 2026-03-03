@@ -16,10 +16,10 @@ function stripInvalidXmlChars(str: string): string {
 	);
 }
 
-// 修复：通用路径处理，支持 Astro 构建后的 _astro 哈希路径
-function convertRelativeImgToAbsolute(html: string, siteUrl: string) {
+// 新增：将所有相对路径图片转换为绝对 URL（适配 Astro 构建后的 _astro 哈希路径）
+function convertAllImgPathsToAbsolute(html: string, siteUrl: string): string {
   const cleanSiteUrl = siteUrl.replace(/\/$/, "");
-  // 匹配所有 img 标签的 src 属性，无论路径格式
+  // 匹配所有 <img src="..."> 标签
   return html.replace(
     /<img([^>]+)src="([^"]+)"([^>]*)>/g,
     (match, before, src, after) => {
@@ -27,17 +27,11 @@ function convertRelativeImgToAbsolute(html: string, siteUrl: string) {
       // 仅处理非 http/https 开头的路径
       if (!src.startsWith("http://") &&!src.startsWith("https://")) {
         if (src.startsWith("/")) {
-          // 以 / 开头的绝对路径（如 /_astro/...）
+          // 以 / 开头的绝对路径（如 /_astro/xxx.webp）
           absoluteSrc = `${cleanSiteUrl}${src}`;
-        } else if (src.startsWith("../")) {
-          // 以../ 开头的相对路径
-          absoluteSrc = `${cleanSiteUrl}/${src.replace("../", "")}`;
-        } else if (src.startsWith("./")) {
-          // 以./ 开头的相对路径
-          absoluteSrc = `${cleanSiteUrl}/${src.replace("./", "")}`;
         } else {
-          // 其他普通相对路径（如 _astro/...）
-          absoluteSrc = `${cleanSiteUrl}/${src}`;
+          // 其他相对路径（如../img/xxx.png 或 _astro/xxx.webp）
+          absoluteSrc = `${cleanSiteUrl}/${src.replace(/^\.\.\//, "")}`;
         }
       }
       return `<img${before}src="${absoluteSrc}"${after}>`;
@@ -47,6 +41,7 @@ function convertRelativeImgToAbsolute(html: string, siteUrl: string) {
 
 export async function GET(context: APIContext) {
 	const blog = await getSortedPosts();
+  // 获取站点根 URL
   const siteUrl = context.site?.toString()?? "https://fuwari.vercel.app";
 
 	return rss({
@@ -58,8 +53,11 @@ export async function GET(context: APIContext) {
 				typeof post.body === "string"? post.body : String(post.body || "");
 			const cleanedContent = stripInvalidXmlChars(content);
       
+      // 1. 渲染 Markdown 为 HTML
       let renderedHtml = parser.render(cleanedContent);
-      renderedHtml = convertRelativeImgToAbsolute(renderedHtml, siteUrl);
+      // 2. 转换所有图片路径为绝对 URL
+      renderedHtml = convertAllImgPathsToAbsolute(renderedHtml, siteUrl);
+      // 3. 清理 HTML 并保留 img 标签及必要属性
       const sanitizedHtml = sanitizeHtml(renderedHtml, {
         allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
         allowedAttributes: {
