@@ -77,7 +77,7 @@ services:
 
 ::github{repo="FreshRSS/FreshRSS"}
 
-![](/img/P2.png)
+![](/img/026/P2.png)
 
 上传到你的虚拟主机，绑定上你的域名（免费二级域也行，B站教程多），设置好运行目录
 
@@ -87,9 +87,9 @@ services:
 
 FreshRSS支持三方API，所以可以使用三方软件添加上FreshRSS，直接在本地客户端实现查看文章
 
-![](/img/P3.png)
+![](/img/026/P3.png)
 
-![](/img/P4.png)
+![](/img/026/P4.png)
 
 软件推荐：
 
