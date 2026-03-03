@@ -16,10 +16,10 @@ function stripInvalidXmlChars(str: string): string {
 	);
 }
 
-// 修复：支持处理所有相对路径图片（包括 /_astro/ 等 Astro 自动生成的资源路径）
+// 修复：通用路径处理，支持 Astro 构建后的 _astro 哈希路径
 function convertRelativeImgToAbsolute(html: string, siteUrl: string) {
   const cleanSiteUrl = siteUrl.replace(/\/$/, "");
-  // 匹配所有 img 标签的 src 属性，处理非 http 开头的相对路径
+  // 匹配所有 img 标签的 src 属性，无论路径格式
   return html.replace(
     /<img([^>]+)src="([^"]+)"([^>]*)>/g,
     (match, before, src, after) => {
@@ -27,7 +27,7 @@ function convertRelativeImgToAbsolute(html: string, siteUrl: string) {
       // 仅处理非 http/https 开头的路径
       if (!src.startsWith("http://") &&!src.startsWith("https://")) {
         if (src.startsWith("/")) {
-          // 以 / 开头的绝对路径（相对于站点根目录）
+          // 以 / 开头的绝对路径（如 /_astro/...）
           absoluteSrc = `${cleanSiteUrl}${src}`;
         } else if (src.startsWith("../")) {
           // 以../ 开头的相对路径
@@ -36,7 +36,7 @@ function convertRelativeImgToAbsolute(html: string, siteUrl: string) {
           // 以./ 开头的相对路径
           absoluteSrc = `${cleanSiteUrl}/${src.replace("./", "")}`;
         } else {
-          // 其他普通相对路径
+          // 其他普通相对路径（如 _astro/...）
           absoluteSrc = `${cleanSiteUrl}/${src}`;
         }
       }
