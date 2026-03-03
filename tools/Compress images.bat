@@ -1,1 +1,1 @@
-@python "%~dp0Compress images.py" "%~dp0../src/content/img/"
+@python "%~dp0Compress images.py" "%~dp0../public/img/"
