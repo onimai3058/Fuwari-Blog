@@ -16,24 +16,38 @@ function stripInvalidXmlChars(str: string): string {
 	);
 }
 
-// 新增：转换 ../img/ 相对路径为绝对 URL 的核心函数
+// 修复：支持处理所有相对路径图片（包括 /_astro/ 等 Astro 自动生成的资源路径）
 function convertRelativeImgToAbsolute(html: string, siteUrl: string) {
-  // 确保站点 URL 末尾无斜杠，避免路径重复（如 https://xxx.com//img）
   const cleanSiteUrl = siteUrl.replace(/\/$/, "");
-  // 匹配所有 ../img/ 开头的图片路径，替换为绝对路径
+  // 匹配所有 img 标签的 src 属性，处理非 http 开头的相对路径
   return html.replace(
-    /<img[^>]+src="\.\.\/img\/([^"]+)"/g,
-    (match, imgPath) => {
-      const absoluteSrc = `${cleanSiteUrl}/img/${imgPath}`;
-      return match.replace(`../img/${imgPath}`, absoluteSrc);
+    /<img([^>]+)src="([^"]+)"([^>]*)>/g,
+    (match, before, src, after) => {
+      let absoluteSrc = src;
+      // 仅处理非 http/https 开头的路径
+      if (!src.startsWith("http://") &&!src.startsWith("https://")) {
+        if (src.startsWith("/")) {
+          // 以 / 开头的绝对路径（相对于站点根目录）
+          absoluteSrc = `${cleanSiteUrl}${src}`;
+        } else if (src.startsWith("../")) {
+          // 以../ 开头的相对路径
+          absoluteSrc = `${cleanSiteUrl}/${src.replace("../", "")}`;
+        } else if (src.startsWith("./")) {
+          // 以./ 开头的相对路径
+          absoluteSrc = `${cleanSiteUrl}/${src.replace("./", "")}`;
+        } else {
+          // 其他普通相对路径
+          absoluteSrc = `${cleanSiteUrl}/${src}`;
+        }
+      }
+      return `<img${before}src="${absoluteSrc}"${after}>`;
     }
   );
 }
 
 export async function GET(context: APIContext) {
 	const blog = await getSortedPosts();
-  // 提取站点根 URL（优先用配置的 site，兜底用默认地址）
-  const siteUrl = context.site?.toString() ?? "https://fuwari.vercel.app";
+  const siteUrl = context.site?.toString()?? "https://fuwari.vercel.app";
 
 	return rss({
 		title: siteConfig.title,
@@ -41,19 +55,15 @@ export async function GET(context: APIContext) {
 		site: siteUrl,
 		items: blog.map((post) => {
 			const content =
-				typeof post.body === "string" ? post.body : String(post.body || "");
+				typeof post.body === "string"? post.body : String(post.body || "");
 			const cleanedContent = stripInvalidXmlChars(content);
       
-      // 1. 渲染 Markdown 为 HTML（包含原始相对路径图片）
       let renderedHtml = parser.render(cleanedContent);
-      // 2. 关键：转换图片相对路径为绝对 URL
       renderedHtml = convertRelativeImgToAbsolute(renderedHtml, siteUrl);
-      // 3. 清理 HTML（保留 img 标签）
       const sanitizedHtml = sanitizeHtml(renderedHtml, {
         allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
-        // 新增：显式允许 img 标签的 src/alt 属性，确保图片正常显示
         allowedAttributes: {
-          ...sanitizeHtml.defaults.allowedAttributes,
+         ...sanitizeHtml.defaults.allowedAttributes,
           img: ["src", "alt", "width", "height"],
         },
       });
@@ -63,7 +73,7 @@ export async function GET(context: APIContext) {
 				pubDate: post.data.published,
 				description: post.data.description || "",
 				link: url(`/posts/${post.slug}/`),
-				content: sanitizedHtml, // 替换为处理后的 HTML
+				content: sanitizedHtml,
 			};
 		}),
 		customData: `<language>${siteConfig.lang}</language>`,
