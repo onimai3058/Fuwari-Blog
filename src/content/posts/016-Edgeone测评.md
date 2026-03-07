@@ -89,29 +89,29 @@ EdgeOne Pages 是基于 EdgeOne 打造的前端 / 全栈部署平台，主打：
 
 [Edgeone获取免费套餐传送门](https://edgeone.ai/get-free-plan)
 
-![](/img/016/P1.png)
+![](../img/016/P1.png)
 
 通过“Test your speed”（测速）后点击分享获取两个套餐
 
-![](/img/016/P2.png)
+![](../img/016/P2.png)
 
 ### 添加域名启动网站安全加速
 
 [点击进入Edgeone控制台](https://console.tencentcloud.com/edgeone)
 
-![](/img/016/P3.png)
+![](../img/016/P3.png)
 
 点击新增站点，输入你的域名
 
-![](/img/016/P4.png)
+![](../img/016/P4.png)
 
 选择你的免费版套餐完成新增，点击你的域名进入你的站点
 
-![](/img/016/P5.png)
+![](../img/016/P5.png)
 
 添加域名，输入源站，在DNS记录中添加CNAME，即可进行网站安全加速
 
-![](/img/016/P6.png)
+![](../img/016/P6.png)
 
 ### 配置SSL，开启Https
 
@@ -119,15 +119,15 @@ EdgeOne Pages 是基于 EdgeOne 打造的前端 / 全栈部署平台，主打：
 
 现在还是在部署中，我们可以先配置SSL
 
-![](/img/016/P7.png)
+![](../img/016/P7.png)
 
-![](/img/016/P8.png)
+![](../img/016/P8.png)
 
-![](/img/016/P9.png)
+![](../img/016/P9.png)
 
 你可以使用自己曾经买的SSL，或者别的平台的免费证书，但是还是推荐使用Edgeone平台给的免费证书，有自动续费功能
 
-![](/img/016/P10.png)
+![](../img/016/P10.png)
 
 稍等一会儿，一杯咖啡的时间，再次访问你的域名，你就可以打开你的网站了，你还可以在“站点加速”菜单内配置一些其他功能
 
