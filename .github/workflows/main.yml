@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Build and Deploy Fuwari
 
 on:
   push:
@@ -13,23 +13,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'pnpm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
 
       - name: Install dependencies
-        run: npm install
+        run: pnpm install --frozen-lockfile
 
-      - name: Build site
-        run: npm run build
+      - name: Build Fuwari
+        run: pnpm build
 
-      - name: Deploy to gh-pages
+      - name: Deploy to dist branch
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
           publish_branch: dist
+          force_orphan: true
