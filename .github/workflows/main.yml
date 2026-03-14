@@ -1,4 +1,4 @@
-name: Build and Deploy Fuwari
+name: 构建并上传到“dist”分支
 
 on:
   push:
@@ -13,31 +13,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source
+      - name: 检查源码
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: 配置Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      # 使用 Node 官方 corepack 安装 pnpm
-      - name: Enable pnpm
+      - name: 安装PNPM
         run: |
           corepack enable
           corepack prepare pnpm@latest --activate
           pnpm --version
 
-      - name: Install dependencies
+      - name: 安装依赖
         run: pnpm install
 
-      - name: Build site
+      - name: 构建
         run: pnpm build
 
-      - name: Get current date
+      - name: 获取今日日期
         run: echo "DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
-      - name: Deploy to dist branch
+      - name: 上传到“dist”分支
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
