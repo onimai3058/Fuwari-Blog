@@ -17,7 +17,7 @@ export const siteConfig: SiteConfig = {
 	},
 	banner: {
 		enable: true,
-		src: "/images/blog-img.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+		src: "/images/blog-img.webp", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 		position: "center", // Equivalent to object-position, only supports 'top', 'center', 'bottom'. 'center' by default
 		credit: {
 			enable: true, // Display the credit text of the banner image
@@ -63,7 +63,7 @@ export const navBarConfig: NavBarConfig = {
 };
 
 export const profileConfig: ProfileConfig = {
-	avatar: "/images/IKUN_3058.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+	avatar: "/images/IKUN_3058.webp", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 	name: "IKUN_3058",
 	bio: "愿你历尽千帆，归来仍是少年。",
 	links: [
