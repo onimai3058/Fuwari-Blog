@@ -1,6 +1,6 @@
 ---
 title: 二次元的Fuwari必须要有番组计划啦
-published: 2026-03-15
+published: 2026-03-17
 description: '029-通过简单的Copy，给你的Fuwari博客添加番组计划功能，并且可以自动更新番剧信息，只要你使用Bangumi'
 image: ''
 tags: [Astro, 静态网页]
