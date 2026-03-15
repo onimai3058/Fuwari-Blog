@@ -17,12 +17,12 @@ export const siteConfig: SiteConfig = {
 	},
 	banner: {
 		enable: true,
-		src: "assets/images/blog-img.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+		src: "/images/blog-img.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 		position: "center", // Equivalent to object-position, only supports 'top', 'center', 'bottom'. 'center' by default
 		credit: {
-			enable: false, // Display the credit text of the banner image
-			text: "From Fuwari-Demo", // Credit text to be displayed
-			url: "https://github.com/saicaca/fuwari/", // (Optional) URL link to the original artwork or artist's page
+			enable: true, // Display the credit text of the banner image
+			text: "By BlueArchive", // Credit text to be displayed
+			url: "https://bluearchive-cn.com/", // (Optional) URL link to the original artwork or artist's page
 		},
 	},
 	toc: {
@@ -63,7 +63,7 @@ export const navBarConfig: NavBarConfig = {
 };
 
 export const profileConfig: ProfileConfig = {
-	avatar: "assets/images/IKUN_3058.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+	avatar: "/images/IKUN_3058.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 	name: "IKUN_3058",
 	bio: "愿你历尽千帆，归来仍是少年。",
 	links: [
