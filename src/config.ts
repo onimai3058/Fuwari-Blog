@@ -8,8 +8,8 @@ import type {
 import { LinkPreset } from "./types/config";
 
 export const siteConfig: SiteConfig = {
-	title: "IKUN_3058のBlog",
-	subtitle: "IKUN_3058",
+	title: "Onimai_3058のBlog",
+	subtitle: "Onimai_3058",
 	lang: "zh_CN", // Language code, e.g. 'en', 'zh_CN', 'ja', etc.
 	themeColor: {
 		hue: 250, // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345
@@ -63,8 +63,8 @@ export const navBarConfig: NavBarConfig = {
 };
 
 export const profileConfig: ProfileConfig = {
-	avatar: "/images/IKUN_3058.webp", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
-	name: "IKUN_3058",
+	avatar: "/images/Onimai_3058.webp", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+	name: "Onimai_3058",
 	bio: "愿你历尽千帆，归来仍是少年。",
 	links: [
 		{

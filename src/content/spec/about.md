@@ -1,6 +1,6 @@
 # About 关于
 
-你好，我是IKUN_3058
+你好，我是Onimai_3058
 
 这是一个基于[Fuwari](https://github.com/saicaca/fuwari)搭建的博客，它用了名为[Astro](https://astro.build)的框架
 ::github{repo="withastro/astro"}
